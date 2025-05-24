@@ -1,0 +1,17 @@
+@url = https://8080-danisborges-trabfinalap-dyf87yqwtlo.ws-us119.gitpod.io
+
+### Criar módulo (associado a um curso)
+POST {{url}}/modulos
+Content-Type: application/json
+
+{
+    "titulo": "Spring Boot",
+    "descricao": "Introdução ao Spring Boot",
+    "cursoId": 1
+}
+
+### Listar módulos de um curso
+GET {{url}}/modulos/curso/1
+
+### Deletar módulo
+DELETE {{url}}/modulos/1

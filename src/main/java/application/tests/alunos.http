@@ -1,0 +1,20 @@
+@url = https://8080-danisborges-trabfinalap-dyf87yqwtlo.ws-us119.gitpod.io
+
+### Listar todos os alunos
+GET {{url}}/alunos
+
+### Buscar aluno por ID
+GET {{url}}/alunos/1
+
+### Criar novo aluno (registro)
+POST {{url}}/alunos
+Content-Type: application/json
+
+{
+    "nome": "João Silva",
+    "email": "joao@email.com",
+    "senha": "123456"
+}
+
+### Deletar aluno
+DELETE {{url}}/alunos/1

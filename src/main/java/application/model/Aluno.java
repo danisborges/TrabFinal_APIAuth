@@ -1,16 +1,14 @@
 package application.model;
 
-import application.record.AlunoDTO;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import application.record.AlunoDTO;
 
 @Entity
 @Table(name = "alunos")
@@ -20,18 +18,18 @@ import lombok.Setter;
 public class Aluno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column(name = "nome_do_aluno", nullable = false, unique = true)
+    private Long id;
     private String nomeDoAluno;
-    @Column(name = "email_do_aluno", nullable = false, unique = true)
     private String email;
-    @Column(nullable = false)
-    private String senha;
+    private String senha;  // Será criptografada via Spring Security
 
-    public Aluno(AlunoDTO dto) {
-        this.id = dto.id();
-        this.nomeDoAluno = dto.nomeDoAluno();
-        this.email = dto.email();
-        this.senha = dto.senha();
+    @ManyToMany(mappedBy = "alunos")  // Relacionamento N:M com Curso (lado inverso)
+    private Set<Curso> cursos = new HashSet<>();
+
+    // Construtor para DTO
+    public Aluno(AlunoDTO alunoDTO) {
+        this.id = alunoDTO.id();
+        this.nomeDoAluno = alunoDTO.nomeDoAluno();
+        this.email = alunoDTO.email();
     }
 }

@@ -1,0 +1,33 @@
+@url = https://8080-danisborges-trabfinalap-dyf87yqwtlo.ws-us119.gitpod.io
+
+### Listar todos os cursos
+GET {{url}}/cursos
+
+### Buscar curso por ID
+GET {{url}}/cursos/1
+
+### Criar novo curso
+POST {{url}}/cursos
+Content-Type: application/json
+
+{
+    "nome": "Java Avançado",
+    "descricao": "Curso sobre Spring Boot e JPA",
+    "cargaHoraria": 60
+}
+
+### Atualizar curso
+PUT {{url}}/cursos/1
+Content-Type: application/json
+
+{
+    "nome": "Java Avançado (Atualizado)",
+    "descricao": "Curso sobre Spring Boot",
+    "cargaHoraria": 80
+}
+
+### Deletar curso
+DELETE {{url}}/cursos/1
+
+### Matricular aluno em um curso
+POST {{url}}/cursos/1/matricular/1

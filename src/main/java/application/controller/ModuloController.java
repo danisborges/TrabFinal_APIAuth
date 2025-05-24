@@ -1,17 +1,12 @@
 package application.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import application.record.ModuloDTO;
 import application.service.ModuloService;
+
+import java.util.Set;
 
 @RestController
 @RequestMapping("/modulos")
@@ -19,29 +14,18 @@ public class ModuloController {
     @Autowired
     private ModuloService moduloService;
 
-    @GetMapping
-    public Iterable<ModuloDTO> getAll() {
-        return moduloService.getAll();
-    }
-
-    @GetMapping("/{id}")
-    public ModuloDTO findOne(@PathVariable long id) {
-        return moduloService.getOne(id);
-    }
-    
     @PostMapping
-    public ModuloDTO insert(@RequestBody ModuloDTO modulo) {
-        return moduloService.insert(modulo);
+    public ModuloDTO criar(@RequestBody ModuloDTO moduloDTO) {
+        return moduloService.create(moduloDTO);
     }
 
-    @PutMapping("/{id}")
-    public ModuloDTO update(@PathVariable long id, @RequestBody ModuloDTO modulo) {
-        return moduloService.update(id, modulo);
+    @GetMapping("/curso/{cursoId}")
+    public Set<ModuloDTO> listarPorCurso(@PathVariable Long cursoId) {
+        return moduloService.getByCursoId(cursoId);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable long id) {
+    public void deletar(@PathVariable Long id) {
         moduloService.delete(id);
     }
-
 }

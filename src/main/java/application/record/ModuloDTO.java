@@ -2,9 +2,18 @@ package application.record;
 
 import application.model.Modulo;
 
-public record ModuloDTO (long id, String tituloDoModulo, String descricao) {
-    public ModuloDTO(Modulo model) {
-        this(model.getId(), model.getTituloDoModulo(), model.getDescricao());
-
+public record ModuloDTO(
+    Long id,
+    String tituloDoModulo,
+    String descricao,
+    Long cursoId  // ID do curso (evita recursão no JSON)
+) {
+    public ModuloDTO(Modulo modulo) {
+        this(
+            modulo.getId(),
+            modulo.getTituloDoModulo(),
+            modulo.getDescricao(),
+            modulo.getCurso().getId()
+        );
     }
 }

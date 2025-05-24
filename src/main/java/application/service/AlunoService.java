@@ -6,22 +6,24 @@ import org.springframework.stereotype.Service;
 
 import application.model.Aluno;
 import application.record.AlunoDTO;
-import application.record.GenericResponse;
+import application.record.AlunoInsertDTO;
 import application.repository.AlunoRepository;
 
 @Service
 public class AlunoService {
     @Autowired
     private AlunoRepository alunoRepo;
+    
     @Autowired
     private PasswordEncoder passwordEncoder;
-    
-    public GenericResponse insert(AlunoDTO dto) {
+
+    public AlunoDTO create(AlunoInsertDTO alunoInsertDTO) {
         Aluno aluno = new Aluno();
-        aluno.setNomeDoAluno(dto.nomeDoAluno());
-        aluno.setEmail(dto.email());
-        aluno.setSenha(passwordEncoder.encode(dto.senha()));
-        alunoRepo.save(aluno);
-        return new GenericResponse("Usuário adicionado.");
+        aluno.setNomeDoAluno(alunoInsertDTO.nomeDoAluno());
+        aluno.setEmail(alunoInsertDTO.email());
+        aluno.setSenha(passwordEncoder.encode(alunoInsertDTO.senha()));
+        
+        aluno = alunoRepo.save(aluno);
+        return new AlunoDTO(aluno);
     }
 }

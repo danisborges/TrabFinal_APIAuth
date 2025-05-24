@@ -1,9 +1,11 @@
 package application.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import application.model.Modulo;
 
+import java.util.Set;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
 public interface ModuloRepository extends JpaRepository<Modulo, Long> {
-    public Modulo findByTituloDoModulo(String tituloDoModulo);
+    Set<Modulo> findByCursoId(Long cursoId);
 }

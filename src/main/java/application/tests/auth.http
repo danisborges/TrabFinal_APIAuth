@@ -1,0 +1,24 @@
+@url = https://8080-danisborges-trabfinalap-dyf87yqwtlo.ws-us119.gitpod.io
+
+### Registrar novo aluno (usuário)
+POST {{url}}/alunos
+Content-Type: application/json
+
+{
+    "nome": "Maria Souza",
+    "email": "maria@email.com",
+    "senha": "123 "
+}
+
+### Autenticar (login) e obter token JWT
+POST {{url}}/auth
+Content-Type: application/json
+
+{
+    "email": "maria@email.com",
+    "senha": "123456"
+}
+
+### Acessar endpoint privado (usar token no header)
+GET {{url}}/cursos
+Authorization: Bearer < >

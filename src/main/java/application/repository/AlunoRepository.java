@@ -1,9 +1,10 @@
 package application.repository;
 
+import application.model.Aluno;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import application.model.Aluno;
+import java.util.Optional;
 
 public interface AlunoRepository extends JpaRepository<Aluno, Long> {
-    public Aluno findByNomeDoALuno(String nomeDoAluno);
+    Optional<Aluno> findByEmail(String email);  // Para autenticação
 }
