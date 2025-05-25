@@ -11,9 +11,9 @@ POST {{url}}/alunos
 Content-Type: application/json
 
 {
-    "nome": "João Silva",
-    "email": "joao@email.com",
-    "senha": "123456"
+    "nome": "Maria Souza",
+    "email": "Maria@email.com",
+    "senha": "345678"
 }
 
 ### Deletar aluno

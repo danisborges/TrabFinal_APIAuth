@@ -1,38 +1,43 @@
 package application.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import application.dto.LoginRequest;
-import application.dto.LoginResponse;
+import application.model.Aluno;
 import application.service.TokenService;
+import application.service.AuthService;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final AuthenticationManager authenticationManager;
-    private final TokenService tokenService;
-
-    public AuthController(AuthenticationManager authenticationManager, TokenService tokenService) {
-        this.authenticationManager = authenticationManager;
-        this.tokenService = tokenService;
-    }
+    @Autowired
+    private AuthenticationManager authManager;
+    
+    @Autowired
+    private TokenService tokenService;
+    
+    @Autowired
+    private AuthService authService;
 
     @PostMapping
-    public LoginResponse auth(@RequestBody LoginRequest loginRequest) {
-        UsernamePasswordAuthenticationToken authenticationToken = 
-            new UsernamePasswordAuthenticationToken(loginRequest.email(), loginRequest.senha());
+    public String auth(@RequestBody AuthDTO authDTO) {
+        var authToken = new UsernamePasswordAuthenticationToken(
+            authDTO.email(), 
+            authDTO.senha()
+        );
         
-        Authentication authentication = authenticationManager.authenticate(authenticationToken);
+        var authentication = authManager.authenticate(authToken);
         
-        String token = tokenService.generateToken(authentication);
+        Aluno aluno = (Aluno) authentication.getPrincipal();
         
-        return new LoginResponse(token);
+        return tokenService.generateToken(aluno);
     }
 }
+
+record AuthDTO(String email, String senha) {}

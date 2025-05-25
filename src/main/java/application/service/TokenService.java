@@ -1,29 +1,49 @@
 package application.service;
 
-import org.springframework.security.core.Authentication;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
+import application.model.Aluno;
 
 @Service
 public class TokenService {
+    private String tokenKey = "123456789"; // Chave secreta (em produção use variável de ambiente)
+    
+    private Instant expirationDate() {
+        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));  
+    }
 
-    private static final String SECRET = "sua_chave_secreta_muito_segura";
-    private static final Algorithm ALGORITHM = Algorithm.HMAC256(SECRET);
+    public String generateToken(Aluno aluno) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(tokenKey);
+            return JWT.create()
+                .withIssuer("Cursos API")
+                .withSubject(aluno.getEmail())
+                .withExpiresAt(this.expirationDate())
+                .sign(algorithm);
+        } catch (JWTCreationException exception) {
+            throw new RuntimeException("Erro ao gerar token JWT");
+        }
+    }
 
-    public String generateToken(Authentication authentication) {
-        Instant now = Instant.now();
-        Instant expiry = now.plus(1, ChronoUnit.DAYS);
-        
-        return JWT.create()
-                .withIssuer("API Cursos")
-                .withSubject(authentication.getName())
-                .withIssuedAt(now)
-                .withExpiresAt(expiry)
-                .sign(ALGORITHM);
+    public String getSubject(String token) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(tokenKey);
+            return JWT.require(algorithm)
+                .withIssuer("Cursos API")
+                .build()
+                .verify(token)
+                .getSubject();
+        } catch (JWTVerificationException exception) {
+            throw new RuntimeException("Token inválido ou expirado");
+        }
     }
 }
