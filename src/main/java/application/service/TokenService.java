@@ -11,22 +11,22 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 
-import application.model.Aluno;
+import application.model.Usuario;
 
 @Service
 public class TokenService {
-    private String tokenKey = "123456789"; // Chave secreta (em produção use variável de ambiente)
+    private String tokenKey = "123456789";
     
     private Instant expirationDate() {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));  
     }
 
-    public String generateToken(Aluno aluno) {
+    public String generateToken(Usuario usuario) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(tokenKey);
             return JWT.create()
                 .withIssuer("Cursos API")
-                .withSubject(aluno.getEmail())
+                .withSubject(usuario.getNomeDeUsuario())
                 .withExpiresAt(this.expirationDate())
                 .sign(algorithm);
         } catch (JWTCreationException exception) {

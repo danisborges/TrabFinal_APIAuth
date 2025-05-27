@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import application.model.Aluno;
+import application.model.Usuario;
 import application.service.TokenService;
-import application.service.AuthService;
 
 @RestController
 @RequestMapping("/auth")
@@ -21,9 +20,6 @@ public class AuthController {
     
     @Autowired
     private TokenService tokenService;
-    
-    @Autowired
-    private AuthService authService;
 
     @PostMapping
     public String auth(@RequestBody AuthDTO authDTO) {
@@ -34,9 +30,9 @@ public class AuthController {
         
         var authentication = authManager.authenticate(authToken);
         
-        Aluno aluno = (Aluno) authentication.getPrincipal();
+        Usuario usuario = (Usuario) authentication.getPrincipal();
         
-        return tokenService.generateToken(aluno);
+        return tokenService.generateToken(usuario);
     }
 }
 

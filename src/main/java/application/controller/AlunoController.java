@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import application.record.AlunoDTO;
-import application.record.AlunoInsertDTO;
 import application.service.AlunoService;
 
 @RestController
@@ -16,8 +15,4 @@ public class AlunoController {
     @Autowired
     private AlunoService alunoService;
 
-    @PostMapping
-    public AlunoDTO criar(@RequestBody AlunoInsertDTO alunoInsertDTO) {
-        return alunoService.create(alunoInsertDTO);
-    }
 }
