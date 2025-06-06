@@ -11,7 +11,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 
-import application.model.Usuario;
+import application.model.Aluno;
+
 
 @Service
 public class TokenService {
@@ -21,12 +22,12 @@ public class TokenService {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));  
     }
 
-    public String generateToken(Usuario usuario) {
+    public String generateToken(Aluno aluno) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(tokenKey);
             return JWT.create()
                 .withIssuer("Cursos API")
-                .withSubject(usuario.getNomeDeUsuario())
+                .withSubject(aluno.getNomeDoAluno())
                 .withExpiresAt(this.expirationDate())
                 .sign(algorithm);
         } catch (JWTCreationException exception) {

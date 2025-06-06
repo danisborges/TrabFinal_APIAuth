@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import application.model.Usuario;
+import application.model.Aluno;
 import application.service.TokenService;
 
 @RestController
@@ -30,9 +30,9 @@ public class AuthController {
         
         var authentication = authManager.authenticate(authToken);
         
-        Usuario usuario = (Usuario) authentication.getPrincipal();
+        Aluno aluno = (Aluno) authentication.getPrincipal();
         
-        return tokenService.generateToken(usuario);
+        return tokenService.generateToken(aluno);
     }
 }
 
