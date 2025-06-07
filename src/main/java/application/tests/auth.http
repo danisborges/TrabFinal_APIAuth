@@ -1,24 +1,25 @@
-@url = https://8080-danisborges-trabfinalap-dyf87yqwtlo.ws-us119.gitpod.io
+### Variáveis globais
+@url = https://humble-umbrella-jp6vp69qx76cpg4g-8080.app.github.dev/api
+@authToken = {{login.response.body.token}}
 
-### Registrar novo aluno (usuário)
-POST {{url}}/alunos
+### Registrar novo usuário
+# @name registro
+POST {{url}}/auth/registro
 Content-Type: application/json
 
 {
-    "nome": "Maria Souza",
-    "email": "maria@email.com",
-    "senha": "123 "
+  "nome": "Teste",
+  "email": "teste3@teste.com",
+  "senha": "teste123"
 }
 
-### Autenticar (login) e obter token JWT
-POST {{url}}/auth
+### Login para obter token JWT
+# @name login
+POST {{url}}/auth/login
 Content-Type: application/json
 
 {
-    "email": "maria@email.com",
-    "senha": "123456"
+  "nome": "Teste",
+  "email": "teste@teste.com",
+  "senha": "teste123"
 }
-
-### Acessar endpoint privado (usar token no header)
-GET {{url}}/cursos
-Authorization: Bearer < >

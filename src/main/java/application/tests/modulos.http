@@ -1,17 +1,37 @@
-@url = https://8080-danisborges-trabfinalap-dyf87yqwtlo.ws-us119.gitpod.io
+### Obter detalhes de um módulo
+@url = https://8080-danisborges-trabfinalap-934ygovc6ts.ws-us120.gitpod.io
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUEkgQ3Vyc29zIiwic3ViIjoidGVzdGUzQHRlc3RlLmNvbSIsImlkIjoyLCJleHAiOjE3NDkwNjg2OTZ9.j-7o-NM72D4r60N6ILKmD9SM8pI3ite7PGpyUdn9OFo
+### Listar módulos de um curso
 
-### Criar módulo (associado a um curso)
-POST {{url}}/modulos
+
+GET {{url}}/cursos/1/modulos
+Authorization: Bearer {{token}}
+
+### Obter detalhes de um módulo
+GET {{url}}/modulos/1
+Authorization: Bearer {{token}}
+###
+### Criar novo módulo para um curso
+
+POST {{url}}/cursos/2/modulos
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
-    "titulo": "Spring Boot",
-    "descricao": "Introdução ao Spring Boot",
-    "cursoId": 1
+  "titulo": "Introdução ao Spring Boot",
+  "descricao": "Fundamentos e configuração inicial do Spring Boot"
 }
 
-### Listar módulos de um curso
-GET {{url}}/modulos/curso/1
+### Atualizar módulo
+PUT {{url}}/modulos/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
-### Deletar módulo
+{
+  "titulo": "Introdução ao Spring Boot - Atualizado",
+  "descricao": "Fundamentos, configuração e boas práticas com Spring Boot"
+}
+
+### Excluir módulo
 DELETE {{url}}/modulos/1
+Authorization: Bearer {{token}}

@@ -1,4 +1,4 @@
-@url = https://8080-danisborges-trabfinalap-93z1iy9vtzl.ws-us119.gitpod.io
+@url = https://8080-danisborges-trabfinalap-934ygovc6ts.ws-us120.gitpod.io
 
 ### Listar todos os alunos
 GET {{url}}/alunos

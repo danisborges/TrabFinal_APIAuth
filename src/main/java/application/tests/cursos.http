@@ -1,33 +1,40 @@
-@url = https://8080-danisborges-trabfinalap-dyf87yqwtlo.ws-us119.gitpod.io
-
 ### Listar todos os cursos
-GET {{url}}/cursos
+@url = https://humble-umbrella-jp6vp69qx76cpg4g-8080.app.github.dev/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUEkgQ3Vyc29zIiwic3ViIjoidGVzdGUzQHRlc3RlLmNvbSIsImlkIjoyLCJleHAiOjE3NDkwNjg2OTZ9.j-7o-NM72D4r60N6ILKmD9SM8pI3ite7PGpyUdn9OFo
+###
 
-### Buscar curso por ID
-GET {{url}}/cursos/1
+GET {{url}}/cursos
+Authorization: Bearer {{token}}
+
+
+### Obter curso por ID
+GET {{url}}/cursos/2
+Authorization: Bearer {{token}}
+
 
 ### Criar novo curso
 POST {{url}}/cursos
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
-    "nome": "Java Avançado",
-    "descricao": "Curso sobre Spring Boot e JPA",
-    "cargaHoraria": 60
+  "nome": "Curso de Java",
+  "descricao": "Aprenda Java do básico ao avançado",  
+  "cargaHoraria": 40
 }
 
 ### Atualizar curso
-PUT {{url}}/cursos/1
+PUT {{url}}/cursos/3
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
-    "nome": "Java Avançado (Atualizado)",
-    "descricao": "Curso sobre Spring Boot",
-    "cargaHoraria": 80
+  "nome": "Curso de Java Atualizado",
+  "descricao": "Atualização do curso de Java",
+    "cargaHoraria": 48
 }
 
-### Deletar curso
-DELETE {{url}}/cursos/1
 
-### Matricular aluno em um curso
-POST {{url}}/cursos/1/matricular/1
+### Deletar curso
+DELETE {{url}}/cursos/3
+Authorization: Bearer {{token}}
